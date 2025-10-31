@@ -1,0 +1,91 @@
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { PrismaService } from '../prisma/prisma.service';
+export declare class UsersService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    create(createUserDto: CreateUserDto): Promise<{
+        email: string;
+        username: string;
+        password: string;
+        fullName: string | null;
+        bio: string | null;
+        avatar: string | null;
+        website: string | null;
+        isPrivate: boolean;
+        isVerified: boolean;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
+    findAll(): import("@prisma/client").Prisma.PrismaPromise<{
+        email: string;
+        username: string;
+        password: string;
+        fullName: string | null;
+        bio: string | null;
+        avatar: string | null;
+        website: string | null;
+        isPrivate: boolean;
+        isVerified: boolean;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+    }[]>;
+    findUnverified(): import("@prisma/client").Prisma.PrismaPromise<{
+        email: string;
+        username: string;
+        password: string;
+        fullName: string | null;
+        bio: string | null;
+        avatar: string | null;
+        website: string | null;
+        isPrivate: boolean;
+        isVerified: boolean;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+    }[]>;
+    findOne(id: number): import("@prisma/client").Prisma.Prisma__UserClient<{
+        email: string;
+        username: string;
+        password: string;
+        fullName: string | null;
+        bio: string | null;
+        avatar: string | null;
+        website: string | null;
+        isPrivate: boolean;
+        isVerified: boolean;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+    } | null, null, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
+    update(id: number, updateUserDto: UpdateUserDto): import("@prisma/client").Prisma.Prisma__UserClient<{
+        email: string;
+        username: string;
+        password: string;
+        fullName: string | null;
+        bio: string | null;
+        avatar: string | null;
+        website: string | null;
+        isPrivate: boolean;
+        isVerified: boolean;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+    }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
+    remove(id: number): import("@prisma/client").Prisma.Prisma__UserClient<{
+        email: string;
+        username: string;
+        password: string;
+        fullName: string | null;
+        bio: string | null;
+        avatar: string | null;
+        website: string | null;
+        isPrivate: boolean;
+        isVerified: boolean;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+    }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
+}

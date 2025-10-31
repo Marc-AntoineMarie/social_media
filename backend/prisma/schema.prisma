@@ -1,0 +1,182 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  password  String   // Hashé avec bcrypt
+  fullName  String?
+  bio       String?  @db.Text
+  avatar    String?  // URL de l'image
+  website   String?
+  isPrivate Boolean  @default(false)
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  posts       Post[]
+  comments    Comment[]
+  likes       Like[]
+  stories     Story[]
+  followers   Follow[]  @relation("UserFollowers")  // Ceux qui me suivent
+  following   Follow[]  @relation("UserFollowing")  // Ceux que je suis
+  sentMessages     Message[] @relation("MessageSender")
+  receivedMessages Message[] @relation("MessageReceiver")
+
+  @@index([username])
+  @@index([email])
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  imageUrl    String    // URL de l'image principale
+  caption     String?   @db.Text
+  location    String?
+  isArchived  Boolean   @default(false)
+  commentsEnabled Boolean @default(true)
+  likesVisible    Boolean @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    Int
+  
+  comments    Comment[]
+  likes       Like[]
+  tags        PostTag[]
+
+  @@index([authorId])
+  @@index([createdAt])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  Int
+  
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    Int
+
+  // Pour les réponses aux commentaires (optionnel a tester)
+  parentComment   Comment?  @relation("CommentReplies", fields: [parentCommentId], references: [id], onDelete: Cascade)
+  parentCommentId Int?
+  replies         Comment[] @relation("CommentReplies")
+
+  @@index([postId])
+  @@index([authorId])
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    Int
+
+  // Un user ne peut liker qu'une seule fois un post
+  @@unique([userId, postId])
+  @@index([postId])
+  @@index([userId])
+}
+
+model Follow {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+
+  // Relations
+  follower    User     @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  followerId  Int
+  
+  following   User     @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+  followingId Int
+
+  // Un user ne peut suivre qu'une seule fois un autre user
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}
+
+model Story {
+  id        Int      @id @default(autoincrement())
+  imageUrl  String
+  caption   String?  @db.Text
+  expiresAt DateTime // Stories expirent après 24h
+  createdAt DateTime @default(now())
+
+  // Relations
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  Int
+
+  @@index([authorId])
+  @@index([expiresAt])
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relations
+  sender      User   @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  senderId    Int
+  
+  receiver    User   @relation("MessageReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  receiverId  Int
+
+  @@index([senderId])
+  @@index([receiverId])
+}
+
+model PostTag {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  // Relations
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    Int
+  
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId     Int
+
+  @@unique([postId, tagId])
+  @@index([postId])
+  @@index([tagId])
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique // Ex: "travel", "food"
+  postCount Int       @default(0) // Nombre de posts avec ce tag
+  createdAt DateTime  @default(now())
+
+  // Relations
+  posts     PostTag[]
+
+  @@index([name])
+}
+
