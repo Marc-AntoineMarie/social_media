@@ -1,13 +1,44 @@
+import Image from 'next/image'
+
+// Types pour les données de l'API
+interface Post {
+  id: number
+  caption: string
+  imageUrl: string
+  location?: string
+  authorId: number
+  createdAt: string
+}
+
+interface Like {
+  id: number
+  postId: number
+  userId: number
+}
+
+interface User {
+  id: number
+  username: string
+  avatar: string
+}
+
+interface Comment {
+  id: number
+  postId: number
+  userId: number
+  content: string
+}
+
 export default async function Home() {
   // Fetch les posts depuis votre API NestJS
   const res = await fetch('http://localhost:3000/posts')
   const res1 = await fetch('http://localhost:3000/likes')
   const res2 = await fetch('http://localhost:3000/users')
   const res3 = await fetch('http://localhost:3000/comments')
-  const posts: any[] = await res.json()
-  const likes: any[] = await res1.json()
-  const users: any[] = await res2.json()
-  const comments: any[] = await res3.json()
+  const posts: Post[] = await res.json()
+  const likes: Like[] = await res1.json()
+  const users: User[] = await res2.json()
+  const comments: Comment[] = await res3.json()
 
   const getLikesCount = (postId: number) => {
     return likes.filter(like=>like.postId===postId).length
@@ -55,11 +86,11 @@ export default async function Home() {
                 </h2>
               </div>
               {/* Image du post */}
-              <img className="w-full cursor-pointer" src={post.imageUrl} alt={post.caption || 'Post'} />
+              <Image className="w-full cursor-pointer" src={post.imageUrl} alt={post.caption || 'Post'} width={500} height={500} />
               {/* Pied du post avec auteur et interactions */}
               <div className="flex p-4 justify-between">
                 <div className="flex items-center space-x-2">
-                  <img className="w-10 h-10 rounded-full object-cover" src={author.avatar} alt={author.username}/>
+                  <Image className="w-10 h-10 rounded-full object-cover" src={author.avatar} alt={author.username} width={40} height={40} />
                   <h3 className="text-gray-800 font-bold cursor-pointer">
                     {author.username}
                   </h3>
