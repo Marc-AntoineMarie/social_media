@@ -102,5 +102,67 @@ jobs:
           name: build-report
           path: report.txt
           retention-days: 30
+  
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
 
-    
+      - name: setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: build backend
+        working-directory: ./backend
+        run: |
+          npm ci
+          npm run build
+          echo "backend build ok"
+      
+      - name: build frontend
+        working-directory: ./frontend
+        run: |
+          npm ci
+          npm run build
+          echo "frontend build ok"
+
+      - name: upldoad build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: |
+            backend/.dist
+            frontend/.next
+          retention-day: 7
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      
+      - name: setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+        
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+        
+      - name: test backend
+        working-directory: ./backend
+        run: |
+          npm ci
+          npm run test
+          echo "backend test ok"
+      
+      - name: Test summary
+        run: |
+          echo "tt les tests sont ok"
+          echo "Date: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "execute par: $GITHUB_ACTOR"      
+      
