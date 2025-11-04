@@ -60,4 +60,26 @@ jobs:
           echo "Version: $VERSION"
           echo "Runner OS: $RUNNER_OS"
           echo "Branch: $GITHUB_REF_NAME"
-    
+  
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Secret API KEY
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "Secret is set: $(if [ -n "$API_KEY" ]; then echo 'YES ✅'; else echo 'NO ❌'; fi)"
+          echo "API Key (masked): $API_KEY"
+          echo "Key length: ${#API_KEY} characters"
+
+      - name: simulate api call
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "calling API with key "
+          if [ -n "$API_KEY" ]; then
+            echo "API key is set"
+          else
+            echo "API key is not set"
+            exit 1
+          fi
