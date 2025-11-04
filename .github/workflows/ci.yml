@@ -55,9 +55,9 @@ jobs:
     steps:
       - name: Display Environment Variables
         run: |
-          echo "📢 Message: $MESSAGE"
-          echo "📱 Application: $APP_NAME"
-          echo "🔖 Version: $VERSION"
-          echo "🖥️  Runner OS: $RUNNER_OS"
-          echo "🌿 Branch: $GITHUB_REF_NAME"
+          echo "Message: $MESSAGE"
+          echo "Application: $APP_NAME"
+          echo "Version: $VERSION"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Branch: $GITHUB_REF_NAME"
     
