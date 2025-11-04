@@ -5,6 +5,7 @@ export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
     create(createUserDto: CreateUserDto): Promise<{
+        id: number;
         email: string;
         username: string;
         password: string;
@@ -14,11 +15,11 @@ export declare class UsersController {
         website: string | null;
         isPrivate: boolean;
         isVerified: boolean;
-        id: number;
         createdAt: Date;
         updatedAt: Date;
     }>;
     findAll(): import("@prisma/client").Prisma.PrismaPromise<{
+        id: number;
         email: string;
         username: string;
         password: string;
@@ -28,11 +29,11 @@ export declare class UsersController {
         website: string | null;
         isPrivate: boolean;
         isVerified: boolean;
-        id: number;
         createdAt: Date;
         updatedAt: Date;
     }[]>;
     findUnverified(): import("@prisma/client").Prisma.PrismaPromise<{
+        id: number;
         email: string;
         username: string;
         password: string;
@@ -42,11 +43,11 @@ export declare class UsersController {
         website: string | null;
         isPrivate: boolean;
         isVerified: boolean;
-        id: number;
         createdAt: Date;
         updatedAt: Date;
     }[]>;
     findOne(id: string): import("@prisma/client").Prisma.Prisma__UserClient<{
+        id: number;
         email: string;
         username: string;
         password: string;
@@ -56,11 +57,11 @@ export declare class UsersController {
         website: string | null;
         isPrivate: boolean;
         isVerified: boolean;
-        id: number;
         createdAt: Date;
         updatedAt: Date;
     } | null, null, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
     update(id: string, updateUserDto: UpdateUserDto): import("@prisma/client").Prisma.Prisma__UserClient<{
+        id: number;
         email: string;
         username: string;
         password: string;
@@ -70,11 +71,11 @@ export declare class UsersController {
         website: string | null;
         isPrivate: boolean;
         isVerified: boolean;
-        id: number;
         createdAt: Date;
         updatedAt: Date;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
     remove(id: string): import("@prisma/client").Prisma.Prisma__UserClient<{
+        id: number;
         email: string;
         username: string;
         password: string;
@@ -84,7 +85,6 @@ export declare class UsersController {
         website: string | null;
         isPrivate: boolean;
         isVerified: boolean;
-        id: number;
         createdAt: Date;
         updatedAt: Date;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;

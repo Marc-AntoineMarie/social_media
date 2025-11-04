@@ -7,31 +7,31 @@ export declare class LikesController {
     create(createLikeDto: CreateLikeDto): import("@prisma/client").Prisma.Prisma__LikeClient<{
         id: number;
         createdAt: Date;
-        userId: number;
         postId: number;
+        userId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
     findAll(): import("@prisma/client").Prisma.PrismaPromise<{
         id: number;
         createdAt: Date;
-        userId: number;
         postId: number;
+        userId: number;
     }[]>;
     findOne(id: string): import("@prisma/client").Prisma.Prisma__LikeClient<{
         id: number;
         createdAt: Date;
-        userId: number;
         postId: number;
+        userId: number;
     } | null, null, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
     update(id: string, updateLikeDto: UpdateLikeDto): import("@prisma/client").Prisma.Prisma__LikeClient<{
         id: number;
         createdAt: Date;
-        userId: number;
         postId: number;
+        userId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
     remove(id: string): import("@prisma/client").Prisma.Prisma__LikeClient<{
         id: number;
         createdAt: Date;
-        userId: number;
         postId: number;
+        userId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
 }

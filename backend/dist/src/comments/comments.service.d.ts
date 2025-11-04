@@ -8,8 +8,8 @@ export declare class CommentsService {
         id: number;
         createdAt: Date;
         updatedAt: Date;
-        content: string;
         authorId: number;
+        content: string;
         postId: number;
         parentCommentId: number | null;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
@@ -17,8 +17,8 @@ export declare class CommentsService {
         id: number;
         createdAt: Date;
         updatedAt: Date;
-        content: string;
         authorId: number;
+        content: string;
         postId: number;
         parentCommentId: number | null;
     }[]>;
@@ -26,8 +26,8 @@ export declare class CommentsService {
         id: number;
         createdAt: Date;
         updatedAt: Date;
-        content: string;
         authorId: number;
+        content: string;
         postId: number;
         parentCommentId: number | null;
     } | null, null, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
@@ -35,8 +35,8 @@ export declare class CommentsService {
         id: number;
         createdAt: Date;
         updatedAt: Date;
-        content: string;
         authorId: number;
+        content: string;
         postId: number;
         parentCommentId: number | null;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
@@ -44,8 +44,8 @@ export declare class CommentsService {
         id: number;
         createdAt: Date;
         updatedAt: Date;
-        content: string;
         authorId: number;
+        content: string;
         postId: number;
         parentCommentId: number | null;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;

@@ -11,10 +11,10 @@ export declare class PostsController {
         imageUrl: string;
         caption: string | null;
         location: string | null;
-        authorId: number;
+        isArchived: boolean;
         commentsEnabled: boolean;
         likesVisible: boolean;
-        isArchived: boolean;
+        authorId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
     findAll(): import("@prisma/client").Prisma.PrismaPromise<{
         id: number;
@@ -23,10 +23,10 @@ export declare class PostsController {
         imageUrl: string;
         caption: string | null;
         location: string | null;
-        authorId: number;
+        isArchived: boolean;
         commentsEnabled: boolean;
         likesVisible: boolean;
-        isArchived: boolean;
+        authorId: number;
     }[]>;
     findOne(id: string): import("@prisma/client").Prisma.Prisma__PostClient<{
         id: number;
@@ -35,10 +35,10 @@ export declare class PostsController {
         imageUrl: string;
         caption: string | null;
         location: string | null;
-        authorId: number;
+        isArchived: boolean;
         commentsEnabled: boolean;
         likesVisible: boolean;
-        isArchived: boolean;
+        authorId: number;
     } | null, null, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
     update(id: string, updatePostDto: UpdatePostDto): import("@prisma/client").Prisma.Prisma__PostClient<{
         id: number;
@@ -47,10 +47,10 @@ export declare class PostsController {
         imageUrl: string;
         caption: string | null;
         location: string | null;
-        authorId: number;
+        isArchived: boolean;
         commentsEnabled: boolean;
         likesVisible: boolean;
-        isArchived: boolean;
+        authorId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
     remove(id: string): import("@prisma/client").Prisma.Prisma__PostClient<{
         id: number;
@@ -59,9 +59,9 @@ export declare class PostsController {
         imageUrl: string;
         caption: string | null;
         location: string | null;
-        authorId: number;
+        isArchived: boolean;
         commentsEnabled: boolean;
         likesVisible: boolean;
-        isArchived: boolean;
+        authorId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
 }
