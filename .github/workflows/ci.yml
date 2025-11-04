@@ -9,11 +9,8 @@ on:
       - main
 
 jobs:
-  build:
+  greeting:
     runs-on: ubuntu-latest
     steps:
-      name: echo message
-      run: echo "Hello world"
-      
-
-
+      - name: Echo Hello World
+        run: echo "Hello World"
