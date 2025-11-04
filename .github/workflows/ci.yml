@@ -83,3 +83,24 @@ jobs:
             echo "API key is not set"
             exit 1
           fi
+
+  artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Report File
+        run: |
+          echo " RAPPORT D'ANALYSE" >> report.txt
+          echo "Date: $(date '+%Y-%m-%d %H:%M:%S')" >> report.txt
+          echo "Système: $RUNNER_OS" >> report.txt
+          echo "Branche: $GITHUB_REF_NAME" >> report.txt
+          echo "Auteur: $GITHUB_ACTOR" >> report.txt
+          echo "Statut: Build réussi" >> report.txt
+          cat report.txt
+      - name: Upload Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-report
+          path: report.txt
+          retention-days: 30
+
+    
