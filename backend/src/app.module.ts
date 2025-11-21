@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -10,7 +11,18 @@ import { FollowService } from './follow/follow.service';
 import { FollowModule } from './follow/follow.module';
 
 @Module({
-  imports: [PrismaModule, UsersModule, PostsModule, LikesModule, CommentsModule, FollowModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    PrismaModule,
+    UsersModule,
+    PostsModule,
+    LikesModule,
+    CommentsModule,
+    FollowModule,
+  ],
   controllers: [AppController],
   providers: [AppService, FollowService],
 })
